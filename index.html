@@ -1,0 +1,218 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEUShareBox | Product Social Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-bg"></div>
+
+  <header class="app-header">
+    <div class="brand-wrap">
+      <p class="eyebrow">Social Commerce Workspace</p>
+      <h1>BEUShareBox</h1>
+      <p class="subtitle">A mini SaaS-style platform to share, discover, and discuss products.</p>
+    </div>
+
+    <div class="header-tools">
+      <button id="theme-toggle-btn" type="button" class="btn btn-secondary theme-toggle-btn">Dark Mode</button>
+
+      <div class="profile-chip" aria-live="polite">
+        <img id="profile-avatar-display" class="profile-avatar hidden" alt="User avatar" />
+        <div>
+          <p class="chip-label">Signed In As</p>
+          <p id="profile-name-display" class="chip-name">Guest</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="panel" aria-labelledby="profile-heading">
+      <h2 id="profile-heading">User Profile</h2>
+      <div class="field-grid profile-tools">
+        <div>
+          <label for="profile-select">Saved Profiles</label>
+          <select id="profile-select" name="profile-select">
+            <option value="">New profile</option>
+          </select>
+        </div>
+        <div class="profile-tool-buttons">
+          <button id="new-profile-btn" type="button" class="btn btn-secondary">New Profile</button>
+          <button id="delete-profile-btn" type="button" class="btn btn-secondary danger-btn">Delete Profile</button>
+        </div>
+      </div>
+      <form id="profile-form" novalidate>
+        <div class="field-grid">
+          <div>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" maxlength="40" required />
+          </div>
+          <div>
+            <label for="avatar">Avatar (optional)</label>
+            <input id="avatar" name="avatar" type="file" accept="image/*" />
+          </div>
+          <div class="full-span">
+            <label for="bio">Bio (optional)</label>
+            <textarea id="bio" name="bio" rows="3" maxlength="220" placeholder="Tell others about you"></textarea>
+          </div>
+        </div>
+        <p id="profile-error" class="form-error" role="alert" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary">Save Profile</button>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="add-product-heading">
+      <h2 id="add-product-heading">Add Product</h2>
+      <form id="product-form" novalidate>
+        <div class="field-grid">
+          <div class="full-span">
+            <label for="product-link">Product URL (auto fill)</label>
+            <div class="link-autofill">
+              <input id="product-link" name="product-link" type="url" placeholder="Paste product link from another website" />
+              <button id="autofill-btn" type="button" class="btn btn-secondary">Auto Fill</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" maxlength="120" required />
+          </div>
+
+          <div>
+            <label for="price">Price</label>
+            <input id="price" name="price" type="number" min="0.01" step="0.01" required />
+          </div>
+
+          <div class="full-span">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" maxlength="500" required></textarea>
+          </div>
+
+          <div>
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="">Select a category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home</option>
+              <option value="beauty">Beauty</option>
+              <option value="sports">Sports</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="image">Image (optional)</label>
+            <input id="image" name="image" type="file" accept="image/*" />
+          </div>
+        </div>
+
+        <p id="form-error" class="form-error" role="alert" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="controls-heading">
+      <h2 id="controls-heading">Dashboard & Controls</h2>
+
+      <div class="stats-grid" aria-label="Statistics dashboard">
+        <article class="stat-card">
+          <p>Total Products</p>
+          <h3 id="product-count">0</h3>
+        </article>
+        <article class="stat-card">
+          <p>Total Likes</p>
+          <h3 id="likes-count">0</h3>
+        </article>
+        <article class="stat-card stat-wide">
+          <p>Most Liked Product</p>
+          <h3 id="most-liked-product">N/A</h3>
+        </article>
+      </div>
+
+      <div>
+        <h3>Category Distribution</h3>
+        <ul id="category-distribution" class="category-distribution"></ul>
+      </div>
+
+      <div class="field-grid">
+        <div>
+          <label for="category-filter">Filter by category</label>
+          <select id="category-filter" name="category-filter">
+            <option value="all">All categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option>
+            <option value="home">Home</option>
+            <option value="beauty">Beauty</option>
+            <option value="sports">Sports</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="sort-by">Sort by</label>
+          <select id="sort-by" name="sort-by">
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="likes-desc">Likes: Most Liked</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="search">Search products</label>
+          <input id="search" name="search" type="search" placeholder="Search by title or description" />
+        </div>
+      </div>
+
+      <div class="inline-tools">
+        <label class="check-wrap" for="my-products-only">
+          <input id="my-products-only" name="my-products-only" type="checkbox" />
+          <span>Show My Products</span>
+        </label>
+
+        <button id="export-btn" type="button" class="btn btn-secondary">Export JSON</button>
+        <label for="import-file" class="btn btn-secondary file-btn">Import JSON</label>
+        <input id="import-file" type="file" accept="application/json" />
+      </div>
+
+      <p id="data-message" class="meta" aria-live="polite"></p>
+    </section>
+
+    <section id="product-list" class="product-list" aria-live="polite" aria-labelledby="product-list-heading">
+      <h2 id="product-list-heading">Products</h2>
+    </section>
+  </main>
+
+  <div id="product-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay" data-modal-close="overlay"></div>
+    <article class="modal-content">
+      <button type="button" class="modal-close-btn" id="modal-close" aria-label="Close modal">x</button>
+      <h2 id="modal-title"></h2>
+      <img id="modal-image" class="modal-image hidden" alt="" />
+      <p id="modal-description"></p>
+      <p><strong>Price:</strong> <span id="modal-price"></span></p>
+      <p><strong>Category:</strong> <span id="modal-category"></span></p>
+      <p><strong>Owner:</strong> <span id="modal-owner"></span></p>
+      <p><strong>Likes:</strong> <span id="modal-likes"></span></p>
+      <p id="modal-source-wrap" class="meta hidden">
+        <strong>Source:</strong>
+        <a id="modal-source-link" href="#" target="_blank" rel="noopener noreferrer">Open original product</a>
+      </p>
+      <p class="meta"><strong>Added:</strong> <span id="modal-created-at"></span></p>
+      <h3>Comments</h3>
+      <ul id="modal-comments" class="comment-list"></ul>
+    </article>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
